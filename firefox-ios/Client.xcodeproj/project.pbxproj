@@ -4361,6 +4361,7 @@
 		434D84EF28D886E900CD0445 /* rm */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = rm; path = rm.lproj/JumpBackIn.strings; sourceTree = "<group>"; };
 		434D84F028D886E900CD0445 /* rm */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = rm; path = rm.lproj/ToolbarLocation.strings; sourceTree = "<group>"; };
 		434D987B2A24C003008BEE63 /* ka */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ka; path = ka.lproj/DisplayCard.strings; sourceTree = "<group>"; };
+		434DEDBE2DEDC291005D8AE0 /* ny */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ny; path = ny.lproj/WidgetIntents.strings; sourceTree = "<group>"; };
 		434E0D022C32C8B60098A594 /* sat-Olck */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sat-Olck"; path = "sat-Olck.lproj/ActivityStream.strings"; sourceTree = "<group>"; };
 		434E0D032C32C8B60098A594 /* sat-Olck */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sat-Olck"; path = "sat-Olck.lproj/AddressToolbar.strings"; sourceTree = "<group>"; };
 		434E1FDB299A549B00F79A7B /* fil */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fil; path = "fil.lproj/Default Browser.strings"; sourceTree = "<group>"; };
@@ -16117,6 +16118,7 @@
 				tg,
 				"es-ES",
 				tzm,
+				ny,
 			);
 			mainGroup = F84B21B51A090F8100AAB793;
 			packageReferences = (
@@ -25322,6 +25324,7 @@
 				43E58E852D6C8B9300B07153 /* tg */,
 				435B20F02D75C47A00D1CC3A /* es-ES */,
 				433D74F72D75C5FE003D5A32 /* tzm */,
+				434DEDBE2DEDC291005D8AE0 /* ny */,
 			);
 			name = WidgetIntents.intentdefinition;
 			sourceTree = "<group>";
