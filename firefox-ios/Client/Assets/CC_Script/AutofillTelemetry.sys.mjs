@@ -12,10 +12,6 @@ class AutofillTelemetryBase {
   EVENT_CATEGORY = null;
   EVENT_OBJECT_FORM_INTERACTION = null;
 
-  HISTOGRAM_NUM_USES = null;
-  HISTOGRAM_PROFILE_NUM_USES = null;
-  HISTOGRAM_PROFILE_NUM_USES_KEY = null;
-
   #initFormEventExtra(value) {
     let extra = {};
     for (const field of Object.values(this.SUPPORTED_FIELDS)) {
@@ -32,33 +28,15 @@ class AutofillTelemetryBase {
     extra[this.SUPPORTED_FIELDS[key]] = value;
   }
 
-  /**
-   * Building the extra keys object that is included in the Legacy Telemetry event `cc_form_v2`
-   * or `address_form` event and the Glean event `cc_form`, and `address_form`.
-   * It indicates the detected credit card or address fields and which method (autocomplete property, regular expression heuristics or fathom) identified them.
-   *
-   * @param {Array<object>} fieldDetails fieldDetails to extract which fields were identified and how
-   * @param {string} undetected Default value when a field is not detected: 'undetected' (Glean) and 'false' in (Legacy)
-   * @param {string} autocomplete Value when a field is identified with autocomplete property: 'autocomplete' (Glean), 'true' (Legacy)
-   * @param {string} regexp Value when a field is identified with regex expression heuristics: 'regexp' (Glean), '0' (Legacy)
-   * @param {boolean} includeMultiPart Include multi part data or not
-   * @returns {object} Extra keys to include in the form event
-   */
-  #buildFormDetectedEventExtra(
-    fieldDetails,
-    undetected,
-    autocomplete,
-    regexp,
-    includeMultiPart
-  ) {
-    let extra = this.#initFormEventExtra(undetected);
+  recordFormDetected(flowId, fieldDetails) {
+    let extra = this.#initFormEventExtra("false");
 
     let identified = new Set();
     fieldDetails.forEach(detail => {
       identified.add(detail.fieldName);
 
       if (detail.reason == "autocomplete") {
-        this.#setFormEventExtra(extra, detail.fieldName, autocomplete);
+        this.#setFormEventExtra(extra, detail.fieldName, "true");
       } else {
         // confidence exists only when a field is identified by fathom.
         let confidence =
@@ -67,46 +45,12 @@ class AutofillTelemetryBase {
         this.#setFormEventExtra(
           extra,
           detail.fieldName,
-          confidence ? confidence.toString() : regexp
+          confidence ? confidence.toString() : "0"
         );
       }
-
-      if (
-        detail.fieldName === "cc-number" &&
-        this.SUPPORTED_FIELDS[detail.fieldName] &&
-        includeMultiPart
-      ) {
-        extra.cc_number_multi_parts = detail.part ?? 1;
-      }
     });
-    return extra;
-  }
 
-  recordFormDetected(flowId, fieldDetails) {
-    this.recordFormEvent(
-      "detected",
-      flowId,
-      this.#buildFormDetectedEventExtra(
-        fieldDetails,
-        "false",
-        "true",
-        "0",
-        false
-      )
-    );
-
-    this.recordGleanFormEvent(
-      "formDetected",
-      flowId,
-      this.#buildFormDetectedEventExtra(
-        fieldDetails,
-        "undetected",
-        "autocomplete",
-        "regexp",
-        true
-      )
-    );
-
+    this.recordFormEvent("detected", flowId, extra);
     try {
       this.recordIframeLayoutDetection(flowId, fieldDetails);
     } catch {}
@@ -115,7 +59,6 @@ class AutofillTelemetryBase {
   recordPopupShown(flowId, fieldDetails) {
     const extra = { field_name: fieldDetails[0].fieldName };
     this.recordFormEvent("popup_shown", flowId, extra);
-    this.recordGleanFormEvent("formPopupShown", flowId, extra);
   }
 
   setUpFormFilledExtra(fieldDetails, data) {
@@ -149,7 +92,6 @@ class AutofillTelemetryBase {
   recordFormFilled(flowId, fieldDetails, data) {
     const extra = this.setUpFormFilledExtra(fieldDetails, data);
     this.recordFormEvent("filled", flowId, extra);
-    this.recordGleanFormEvent("formFilled", flowId, extra);
   }
 
   recordFormFilledOnFieldsUpdate(flowId, fieldDetails, data) {
@@ -160,7 +102,6 @@ class AutofillTelemetryBase {
   recordFilledModified(flowId, fieldDetails) {
     const extra = { field_name: fieldDetails[0].fieldName };
     this.recordFormEvent("filled_modified", flowId, extra);
-    this.recordGleanFormEvent("formFilledModified", flowId, extra);
   }
 
   recordFormSubmitted(flowId, fieldDetails, data) {
@@ -184,7 +125,6 @@ class AutofillTelemetryBase {
     }
 
     this.recordFormEvent("submitted", flowId, extra);
-    this.recordGleanFormEvent("formSubmitted", flowId, extra);
   }
 
   recordFormCleared(flowId, fieldDetails) {
@@ -193,14 +133,9 @@ class AutofillTelemetryBase {
     // Note that when a form is cleared, we also record `filled_modified` events
     // for all the fields that have been cleared.
     this.recordFormEvent("cleared", flowId, extra);
-    this.recordGleanFormEvent("formCleared", flowId, extra);
   }
 
   recordFormEvent(_method, _flowId, _extra) {
-    throw new Error("Not implemented.");
-  }
-
-  recordGleanFormEvent(_eventName, _flowId, _extra) {
     throw new Error("Not implemented.");
   }
 
@@ -242,17 +177,6 @@ class AutofillTelemetryBase {
 
   recordAutofillProfileCount(_count) {
     throw new Error("Not implemented.");
-  }
-
-  recordNumberOfUse(records) {
-    let histogram = Services.telemetry.getKeyedHistogramById(
-      this.HISTOGRAM_PROFILE_NUM_USES
-    );
-    histogram.clear();
-
-    for (let record of records) {
-      histogram.add(this.HISTOGRAM_PROFILE_NUM_USES_KEY, record.timesUsed);
-    }
   }
 
   recordIframeLayoutDetection(flowId, fieldDetails) {
@@ -299,9 +223,6 @@ export class AddressTelemetry extends AutofillTelemetryBase {
   EVENT_OBJECT_FORM_INTERACTION = "AddressForm";
   EVENT_OBJECT_FORM_INTERACTION_EXT = "AddressFormExt";
 
-  HISTOGRAM_PROFILE_NUM_USES = "AUTOFILL_PROFILE_NUM_USES";
-  HISTOGRAM_PROFILE_NUM_USES_KEY = "address";
-
   // Fields that are recorded in `address_form` and `address_form_ext` telemetry
   SUPPORTED_FIELDS = {
     "street-address": "street_address",
@@ -344,10 +265,6 @@ export class AddressTelemetry extends AutofillTelemetryBase {
     "tel",
   ];
 
-  recordGleanFormEvent(_eventName, _flowId, _extra) {
-    // To be implemented when migrating the legacy event address.address_form to Glean
-  }
-
   recordFormEvent(method, flowId, extra) {
     let extExtra = {};
     if (["detected", "filled", "submitted"].includes(method)) {
@@ -381,10 +298,6 @@ class CreditCardTelemetry extends AutofillTelemetryBase {
   EVENT_CATEGORY = "creditcard";
   EVENT_OBJECT_FORM_INTERACTION = "CcFormV2";
 
-  HISTOGRAM_NUM_USES = "CREDITCARD_NUM_USES";
-  HISTOGRAM_PROFILE_NUM_USES = "AUTOFILL_PROFILE_NUM_USES";
-  HISTOGRAM_PROFILE_NUM_USES_KEY = "credit_card";
-
   // Mapping of field name used in formautofill code to the field name
   // used in the telemetry.
   SUPPORTED_FIELDS = {
@@ -395,12 +308,6 @@ class CreditCardTelemetry extends AutofillTelemetryBase {
     "cc-exp-month": "cc_exp_month",
     "cc-exp-year": "cc_exp_year",
   };
-
-  recordGleanFormEvent(eventName, flowId, extra) {
-    extra.flow_id = flowId;
-    Glean.formautofillCreditcards[eventName].record(extra);
-  }
-
   recordFormEvent(method, flowId, aExtra) {
     // Don't modify the passed-in aExtra as it's reused.
     const extra = Object.assign({ value: flowId }, aExtra);
@@ -410,20 +317,33 @@ class CreditCardTelemetry extends AutofillTelemetryBase {
     );
   }
 
-  recordNumberOfUse(records) {
-    super.recordNumberOfUse(records);
+  recordFormDetected(flowId, fieldDetails) {
+    super.recordFormDetected(flowId, fieldDetails);
+    this.recordCcNumberFieldsCount(fieldDetails);
+  }
 
-    if (!this.HISTOGRAM_NUM_USES) {
-      return;
+  /**
+   * Collect the amount of consecutive cc number fields to help decide
+   * whether to support filling other field counts besides 1 and 4 fields
+   */
+  recordCcNumberFieldsCount(fieldDetails) {
+    const recordCount = count => {
+      const label = "cc_number_fields_" + (count > 4 ? "other" : count);
+      Glean.creditcard.detectedCcNumberFieldsCount[label].add(1);
+    };
+
+    let consecutiveCcNumberCount = 0;
+    for (const { fieldName, reason } of fieldDetails) {
+      if (fieldName == "cc-number" && reason == "autocomplete") {
+        consecutiveCcNumberCount++;
+      } else if (consecutiveCcNumberCount) {
+        recordCount(consecutiveCcNumberCount);
+        consecutiveCcNumberCount = 0;
+      }
     }
 
-    let histogram = Services.telemetry.getHistogramById(
-      this.HISTOGRAM_NUM_USES
-    );
-    histogram.clear();
-
-    for (let record of records) {
-      histogram.add(record.timesUsed);
+    if (consecutiveCcNumberCount) {
+      recordCount(consecutiveCcNumberCount);
     }
   }
 
@@ -502,14 +422,6 @@ export class AutofillTelemetry {
   static recordAutofillProfileCount(type, count) {
     const telemetry = this.#getTelemetryByType(type);
     telemetry.recordAutofillProfileCount(count);
-  }
-
-  /**
-   * Utility functions for address/credit card number of use
-   */
-  static recordNumberOfUse(type, records) {
-    const telemetry = this.#getTelemetryByType(type);
-    telemetry.recordNumberOfUse(records);
   }
 
   static recordFormSubmissionHeuristicCount(label) {
