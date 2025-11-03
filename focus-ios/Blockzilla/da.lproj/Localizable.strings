@@ -80,7 +80,7 @@
 "Autocomplete.customUrlAdded" = "Ny brugerdefineret URL tilføjet.";
 
 /* Description for enabling or disabling the default list. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
-"Autocomplete.defaultDescriptoin" = "Aktiver for at få %@ til at autofuldføre over 450 populære URL'er i adresselinjen.";
+"Autocomplete.defaultDescriptoin" = "Aktiver for at få %@ til at autofuldføre over 450 populære URL'er i adressefeltet.";
 
 /* label describing URL Autocomplete as disabled */
 "Autocomplete.disabled" = "Deaktiveret";
@@ -217,6 +217,12 @@
 /* Text for a label that indicates the title of incognito section from onboarding screen. */
 "Onboarding.Incognito.Title" = "Mere end bare inkognito";
 
+/* Used as a text for the link in Onboarding.PrivacyNotice.Text. */
+"Onboarding.PrivacyNotice.LinkText" = "privatlivserklæringen";
+
+/* Text that describes Firefox's commitment to privacy. %@ is a link using Onboarding.PrivacyNotice.LinkText as text. */
+"Onboarding.PrivacyNotice.Text" = "Firefox passer på dit privatliv. Læs mere i %@.";
+
 /* Text for a label that indicates the description of protection section from onboarding screen. */
 "Onboarding.Protection.Description" = "Konfigurer indstillingerne for selv at bestemme, hvor meget eller hvor lidt du vil dele.";
 
@@ -225,6 +231,24 @@
 
 /* Text for a label that indicates the subtitle for onboarding screen. */
 "Onboarding.Subtitle" = "Tag din private browsing til det næste niveau.";
+
+/* Label for the agreement button in the Terms of Use screen. */
+"Onboarding.TermsOfUse.ButtonText" = "Accepter og fortsæt";
+
+/* Button label to dismiss the Privacy Policy and Terms of Use screen. */
+"Onboarding.TermsOfUse.Done.ButtonText" = "Færdig";
+
+/* Used as a text for the link in Onboarding.TermsOfUse.Text. */
+"Onboarding.TermsOfUse.LinkText" = "betingelser for brug af Firefox";
+
+/* Subtitle for the Terms of Use screen during onboarding. */
+"Onboarding.TermsOfUse.Subtitle" = "Hurtig. Privat. Ingen distraktioner.";
+
+/* Text that describes the agreement to the Firefox Terms of Use. %@ is a link using Onboarding.TermsOfUse.LinkText as text. */
+"Onboarding.TermsOfUse.Text" = "Ved at fortsætte accepterer du %@.";
+
+/* Title for the Terms of Use screen during onboarding. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
+"Onboarding.TermsOfUse.Title" = "Velkommen til %@";
 
 /* Text for a label that indicates the title for onboarding screen. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
 "Onboarding.Title" = "Velkommen til Firefox %@!";
@@ -260,7 +284,7 @@
 "SearchSuggestions.promptEnable" = "Ja";
 
 /* %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). Label for search suggestions prompt message */
-"SearchSuggestions.promptMessage" = "For at kunne vise søgeforslag sender %@ dine indtastninger i søgefeltet til søgetjenesten.";
+"SearchSuggestions.promptMessage" = "For at kunne vise søgeforslag sender %@ dine indtastninger i adressefeltet til søgetjenesten.";
 
 /* Title for search suggestions prompt */
 "SearchSuggestions.promptTitle" = "Vis søgeforslag?";
@@ -290,7 +314,7 @@
 "Settings.detailTextCrashReports.V2" = "Dette hjælper os med at diagnosticere og løse problemer med browseren.";
 
 /* Description associated to the Search Suggestions toggle on main screen. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
-"Settings.detailTextSearchSuggestion" = "%@ sender det indtastede i adresselinjen til den valgte søgetjeneste.";
+"Settings.detailTextSearchSuggestion" = "%@ sender det indtastede i adressefeltet til den valgte søgetjeneste.";
 
 /* Description associated to the Send Usage Data toggle on main screen. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
 "Settings.detailTextSendUsageData" = "Mozilla stræber efter kun at indsamle, hvad vi skal bruge for at kunne tilbyde og forbedre %@ for alle.";
