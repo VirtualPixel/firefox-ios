@@ -32,7 +32,7 @@
 "About.safariBullet1" = "拦截跟踪器，加强隐私";
 
 /* Label on About screen */
-"About.safariBullet2" = "拦截网络字体，减少网页大小";
+"About.safariBullet2" = "拦截网络字体，缩减网页大小";
 
 /* Label on About screen */
 "About.safariBulletHeader" = "用作 Safari 浏览器扩展，可以：";
@@ -247,6 +247,9 @@
 /* Text that describes the agreement to the Firefox Terms of Use. %@ is a link using Onboarding.TermsOfUse.LinkText as text. */
 "Onboarding.TermsOfUse.Text" = "继续即表示您同意%@。";
 
+/* Title for the Terms of Use screen during onboarding. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
+"Onboarding.TermsOfUse.Title" = "欢迎使用 %@";
+
 /* Text for a label that indicates the title for onboarding screen. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
 "Onboarding.Title" = "欢迎使用 Firefox %@！";
 
@@ -299,7 +302,7 @@
 "Settings.blockOtherYes2" = "拦截内容跟踪器";
 
 /* On the Settings screen, this is the subtitle text for a toggle which controls sending daily usage ping. */
-"Settings.DailyUsagePing.Message" = "此数据可帮助 Mozilla 估算活跃用户数量。";
+"Settings.DailyUsagePing.Message" = "此信息可帮助 Mozilla 估算活跃用户数量。";
 
 /* On the Settings screen, this is the title text for a toggle which controls automatically sending daily usage ping. */
 "Settings.DailyUsagePing.Title" = "每日使用情况报告";
