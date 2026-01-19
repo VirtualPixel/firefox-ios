@@ -80,7 +80,7 @@
 "Autocomplete.customUrlAdded" = "L’indirizzu web persunalizatu novu hè aghjuntu.";
 
 /* Description for enabling or disabling the default list. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
-"Autocomplete.defaultDescriptoin" = "Attivà per chì %@ compii autumaticamente più di 450 indirizzi populari in a barra d’indirizzu.";
+"Autocomplete.defaultDescriptoin" = "Attivà per chì %@ compii autumaticamente più di 450 indirizzi pupulari in a barra d’indirizzu.";
 
 /* label describing URL Autocomplete as disabled */
 "Autocomplete.disabled" = "Disattivata";
@@ -104,10 +104,10 @@
 "Autocomplete.mySitesDesc" = "Attivà per chì %@ compii autumaticamente i vostri indirizzi web favuriti.";
 
 /* Label for enabling or disabling top sites */
-"Autocomplete.topSites" = "Siti populari";
+"Autocomplete.topSites" = "Siti pupulari";
 
 /* Title for the action button shown on the Splash Screen which gives the user the ability to log in with biometrics. */
-"BiometricAuthentication.UnlockButton.Title" = "Sbluccà";
+"BiometricAuthentication.UnlockButton.Title" = "Spalancà";
 
 /* Create a new session after failing a biometric check */
 "BiometricPrompt.newSession" = "Sessione nova";
@@ -217,6 +217,12 @@
 /* Text for a label that indicates the title of incognito section from onboarding screen. */
 "Onboarding.Incognito.Title" = "Più chè solu incognitu";
 
+/* Used as a text for the link in Onboarding.PrivacyNotice.Text. */
+"Onboarding.PrivacyNotice.LinkText" = "pulitica di cunfidenzialità";
+
+/* Text that describes Firefox's commitment to privacy. %@ is a link using Onboarding.PrivacyNotice.LinkText as text. */
+"Onboarding.PrivacyNotice.Text" = "Firefox face casu di a vostra vita privata.Sapene di più in a %@.";
+
 /* Text for a label that indicates the description of protection section from onboarding screen. */
 "Onboarding.Protection.Description" = "Cunfigureghja i parametri per sceglie s’è vò scumpartite assai o pocu.";
 
@@ -225,6 +231,24 @@
 
 /* Text for a label that indicates the subtitle for onboarding screen. */
 "Onboarding.Subtitle" = "Fate passà a vostra navigazione privata à u livellu superiore.";
+
+/* Label for the agreement button in the Terms of Use screen. */
+"Onboarding.TermsOfUse.ButtonText" = "Accettà è cuntinuà";
+
+/* Button label to dismiss the Privacy Policy and Terms of Use screen. */
+"Onboarding.TermsOfUse.Done.ButtonText" = "Compiu";
+
+/* Used as a text for the link in Onboarding.TermsOfUse.Text. */
+"Onboarding.TermsOfUse.LinkText" = "cundizioni d’utilizazione di Firefox";
+
+/* Subtitle for the Terms of Use screen during onboarding. */
+"Onboarding.TermsOfUse.Subtitle" = "Rapidu. Pruvatu. Senza distrazzione.";
+
+/* Text that describes the agreement to the Firefox Terms of Use. %@ is a link using Onboarding.TermsOfUse.LinkText as text. */
+"Onboarding.TermsOfUse.Text" = "Cuntinuendu, vole si dì chì vo accettate e %@.";
+
+/* Title for the Terms of Use screen during onboarding. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
+"Onboarding.TermsOfUse.Title" = "Benvenuta in %@";
 
 /* Text for a label that indicates the title for onboarding screen. %@ is the app name (for example “Firefox Focus” or ”Firefox Klar”). */
 "Onboarding.Title" = "Benvenuta in Firefox %@ !";
@@ -644,7 +668,7 @@
 "URL.paste" = "Incullà";
 
 /* Placeholder text shown in the URL bar before the user navigates to a page */
-"URL.placeholderText" = "Ricerca o indirizzu";
+"URL.placeholderText" = "Circà o stampittà un indirizzu";
 
 /* Label displayed for search button when typing in the URL bar. %@ is the text type by the user. */
 "URL.searchLabel" = "Circà %@";
