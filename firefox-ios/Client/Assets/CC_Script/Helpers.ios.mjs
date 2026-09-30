@@ -8,11 +8,13 @@ import Overrides from "resource://gre/modules/Overrides.ios.js";
 /* eslint mozilla/use-isInstance: 0 */
 HTMLSelectElement.isInstance = element => element instanceof HTMLSelectElement;
 HTMLInputElement.isInstance = element => element instanceof HTMLInputElement;
+HTMLTextAreaElement.isInstance = element =>
+  element instanceof HTMLTextAreaElement;
 HTMLIFrameElement.isInstance = element => element instanceof HTMLIFrameElement;
 HTMLFormElement.isInstance = element => element instanceof HTMLFormElement;
 ShadowRoot.isInstance = element => element instanceof ShadowRoot;
 
-HTMLElement.prototype.ownerGlobal = window;
+HTMLElement.prototype.documentGlobal = window;
 
 // We cannot mock this in WebKit because we lack access to low-level APIs.
 // For completeness, we simply return true when the input type is "password".
@@ -26,7 +28,7 @@ Object.defineProperty(HTMLInputElement.prototype, "hasBeenTypePassword", {
   configurable: true,
 });
 
-HTMLInputElement.prototype.setUserInput = function (value) {
+function setUserInput(value) {
   this.value = value;
 
   // In React apps, setting .value may not always work reliably.
@@ -42,11 +44,14 @@ HTMLInputElement.prototype.setUserInput = function (value) {
   });
 
   this.dispatchEvent(new Event("blur", { bubbles: true }));
-};
+}
+
+HTMLInputElement.prototype.setUserInput = setUserInput;
+HTMLTextAreaElement.prototype.setUserInput = setUserInput;
 
 // Mimic the behavior of .getAutocompleteInfo()
 // It should return an object with a fieldName property matching the autocomplete attribute
-// only if it's a valid value from this list https://searchfox.org/mozilla-central/source/dom/base/AutocompleteFieldList.h#89-149
+// only if it's a valid value from this list https://searchfox.org/firefox-main/source/dom/base/AutocompleteFieldList.h#89-149
 // Also found here: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
 HTMLElement.prototype.getAutocompleteInfo = function () {
   const autocomplete = this.getAttribute("autocomplete");
